@@ -1,0 +1,3 @@
+#!/bin/sh
+gcc helloworld.c -Wall -Wextra -Werror -pedantic -lm
+./a.out
