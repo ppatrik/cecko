@@ -1,0 +1,68 @@
+#include<stdio.h>
+
+#define MAX_LENGTH 100
+
+struct person {
+	char firstname[MAX_LENGTH];
+	char surname[MAX_LENGTH];
+	char street[MAX_LENGTH];
+	int street_no;
+	char city[MAX_LENGTH);
+	int year_of_birth;
+	struct person *_next;
+}
+
+void printPersons(struct person *list) {
+	struct person *help = list;
+	while(help != NULL) {
+		printf("%s %s, %s %d, %s, Rok narodenia %d vek %d",
+			help->firstname,
+			help->surname,
+			help->street,
+			help->street_no,
+			help->city,
+			help->year_of_birth,
+			0
+		);
+		help = help->_next;
+	}
+}
+
+int main(void) {
+	char row[MAX_LENGTH];
+	struct person *list = NULL;
+	struct person *help = NULL;
+
+	while(fgets(row, MAX_LENGTH, stdin) != NULL) {
+		help = malloc(sizeof(struct person));
+
+		if(help == NULL) {
+			perror("Cannot alocate memory!");
+		} else {
+			strcpy(help->firstname, row);
+
+			fgets(row, MAX_LENGTH, stdin);
+			strcpy(help->surname, row);
+
+                        fgets(row, MAX_LENGTH, stdin);
+			strcpy(help->street, row);
+
+                        fgets(row, MAX_LENGTH, stdin);
+			strcpy(help->street_no, row);
+
+                        fgets(row, MAX_LENGTH, stdin);
+                        strcpy(help->city, row);
+
+                        fgets(row, MAX_LENGTH, stdin);
+                        strcpy(help->year_of_birth, row);
+
+			/* empty row */
+			fgets(row, MAX_LENGTH, stdin);
+
+			help->_next = list;
+			list = help;
+		}
+	}
+
+	printPersons(list);
+}
